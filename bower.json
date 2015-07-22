@@ -1,27 +1,31 @@
 {
-    "name": "ness-project-card",
-    "version": "0.1",
-    "homepage": "https://github.com/BapNesS/ness-project-card",
-    "authors": [
-        "Baptiste Carlier <contact@baptistecarlier.com>"
-    ],
-    "description": "Polymer element for project description.",
-    "keywords": [
-        "polymer"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "main": "ness-project-card.html",
-    "dependencies": {
-        "polymer": "Polymer/polymer#^1.0.2",
-        "iron-icon": "PolymerElements/iron-icon#~1.0.0",
-        "paper-button": "PolymerElements/paper-button#~1.0.0"
-    }
+  "name": "ness-project-card",
+  "version": "0.1.1",
+  "description": "Polymer element for project description.",
+  "main": "ness-project-card.html",
+  "private": true,
+  "homepage": "https://github.com/BapNesS/ness-project-card",
+  "authors": [
+    "Baptiste Carlier <contact@baptistecarlier.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/BapNesS/ness-project-card.git"
+  },
+  "keywords": [
+    "polymer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.2",
+    "iron-icon": "PolymerElements/iron-icon#~1.0.0",
+    "paper-button": "PolymerElements/paper-button#~1.0.0"
+  }
 }
