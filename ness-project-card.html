@@ -5,6 +5,8 @@
 <link href="../polymer/polymer.html" rel="import">
 <link href="../paper-button/paper-button.html" rel="import">
 <link href="../iron-icon/iron-icon.html" rel="import">
+<link href="../iron-icons/hardware-icons.html" rel="import">
+<link href="../paper-tooltip/paper-tooltip.html" rel="import">
 
 <dom-module id="ness-project-card">
 
@@ -12,7 +14,7 @@
         .card {
             position: relative;
             width: 450px;
-            height: 300px;
+            height: 400px;
             margin-bottom: 20px;
             margin-right: 20px;
             padding : 0px;
@@ -28,14 +30,14 @@
         @media only screen and (max-width: 850px) {
             .card {
                 width: 100%;
-                height: 360px;
+                height: 500px;
             }
         }
 
         @media only screen and (min-width: 851px) and (max-width: 1293px) {
             .card {
                 width: 95%;
-                height: 360px;
+                height: 460px;
             }
         }
       
@@ -54,6 +56,20 @@
           margin: 0px;
           padding: 0px;
       }
+      .plateform {
+            position: absolute;
+            top: auto;
+            left: 0px;
+            bottom: 0.30em;
+            right: auto;
+              padding: 0.7em 0.57em;
+              padding-left: 21px;
+              padding-rigth: 14px;
+            color: var(--google-grey-300);
+      }
+      .active {
+            color: var(--accent-color);
+      }
       .action {
             position: absolute;
             top: auto;
@@ -68,6 +84,9 @@
           padding-left: 14px;
           padding-right: 14px;
       }
+      paper-tooltip {
+          z-index: 5;
+      }
   </style>
 
   <template>
@@ -76,7 +95,31 @@
         <div class="inner">
             <h2>{{title}}</h2>
             <content></content>
-            <p><strong>Compétences :</strong> <span>{{formatSkills}}</span>.</p>
+            <p hidden="{{!languagesEnable}}"><strong>Langages :</strong> <span>{{formatLangages}}</span></p>
+            <p hidden="{{!frameworksEnable}}"><strong>Frameworks :</strong> <span>{{formatFrameworks}}</span></p>
+            <p hidden="{{!toolsEnable}}"><strong>Autre :</strong> <span>{{formatTools}}</span></p>
+        </div>
+        <div class="plateform">
+            <div style="display:inline-block">
+                <iron-icon id="web" class$="{{getClass(isWeb)}}" icon="hardware:phonelink"></iron-icon>
+                <paper-tooltip for="web">Web</paper-tooltip>
+            </div>
+            <div style="display:inline-block">
+                <iron-icon id="mobileapp" class$="{{getClass(isMobileApp)}}" icon="hardware:phone-android"></iron-icon>
+                <paper-tooltip for="mobileapp">Application mobile</paper-tooltip>
+            </div>
+            <div style="display:inline-block">
+                <iron-icon id="desktop" class$="{{getClass(isDesktop)}}" icon="hardware:laptop"></iron-icon>
+                <paper-tooltip for="desktop">Bureau</paper-tooltip>
+            </div>
+            <div style="display:inline-block">
+                <iron-icon id="tv" class$="{{getClass(isTv)}}" icon="hardware:tv"></iron-icon>
+                <paper-tooltip for="tv">Télévision</paper-tooltip>
+            </div>
+            <div style="display:inline-block">
+                <iron-icon id="wear" class$="{{getClass(isWear)}}" icon="hardware:watch"></iron-icon>
+                <paper-tooltip for="wear">Montres</paper-tooltip>
+            </div>
         </div>
         <div class="action"><a href="{{link}}" target="_blank"><paper-button class="buttonWithIcon"><iron-icon icon="link"></iron-icon>Lien</paper-button></a></div>
     </div>
@@ -91,30 +134,73 @@
         is: 'ness-project-card',
         properties: {
             title: String,
-            skills: {
+            languages: {
                 type: Object,
                 value: function() {
                     return [];
                 }
             },
+            frameworks: {
+                type: Object,
+                value: function() {
+                    return [];
+                }
+            },
+            tools: {
+                type: Object,
+                value: function() {
+                    return [];
+                }
+            },
+            isWeb: Boolean,
+            isMobileApp: Boolean,
+            isDesktop: Boolean,
+            isTv: Boolean,
+            isWear: Boolean,
             link: String,
-            formatSkills: {
+            languagesEnable: {
+                type: Boolean,
+                computed: 'computeEnable(languages)'
+            },
+            frameworksEnable: {
+                type: Boolean,
+                computed: 'computeEnable(frameworks)'
+            },
+            toolsEnable: {
+                type: Boolean,
+                computed: 'computeEnable(tools)'
+            },
+            formatLangages: {
                 type: String,
-                computed: 'computeFormatSkills(skills)'
+                computed: 'computeFormatTab(languages)'
+            },
+            formatFrameworks: {
+                type: String,
+                computed: 'computeFormatTab(frameworks)'
+            },
+            formatTools: {
+                type: String,
+                computed: 'computeFormatTab(tools)'
             }
         },
-        computeFormatSkills: function(skills) {
+        getClass: function(value) {
+            if ( value ) { return "active"; } else { return "" } ;
+        },
+        computeEnable: function(tab) {
+            return tab.length>0;
+        },
+        computeFormatTab: function(tab) {
             var res = '';
-            for (i = 0; i < skills.length; i++) { 
-                var s = skills[i];
+            for (i = 0; i < tab.length; i++) { 
+                var s = tab[i];
                 if ( i == 0 ) {
                     res = s;
-                } else if ( i == skills.length-1 ) {
+                } else if ( i == tab.length-1 ) {
                     res = res + ' et '+ s;
                 } else {
                     res = res + ', '+s;
                 }
-                if ( i == skills.length-1 ) {
+                if ( i == tab.length-1 ) {
                     res = res + '.';
                 }
             }
