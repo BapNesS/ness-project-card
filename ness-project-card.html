@@ -25,6 +25,10 @@
             display: inline-block;
             float: left;
             @apply(--shadow-elevation-2dp);
+            transition: 0.3s ease;
+        }
+        .card:hover {
+            @apply(--shadow-elevation-4dp);
         }
       
         @media only screen and (max-width: 850px) {
